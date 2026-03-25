@@ -1,0 +1,16 @@
+[package]
+name = "office-app-mail"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+office-core.workspace = true
+office-crdt.workspace = true
+office-storage.workspace = true
+chrono.workspace = true
+uuid.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+tracing.workspace = true

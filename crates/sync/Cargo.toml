@@ -1,0 +1,15 @@
+[package]
+name = "office-sync"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+office-core.workspace = true
+office-crdt.workspace = true
+libp2p.workspace = true
+async-nats.workspace = true
+tokio.workspace = true
+async-trait.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+tracing.workspace = true

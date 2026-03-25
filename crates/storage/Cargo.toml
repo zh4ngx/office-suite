@@ -1,0 +1,14 @@
+[package]
+name = "office-storage"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+office-core.workspace = true
+sha2.workspace = true
+base58.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+tokio.workspace = true
+tracing.workspace = true
