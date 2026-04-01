@@ -50,7 +50,20 @@ All application state and agent memory lives in **Automerge documents** that syn
 All agent code runs in **Wasmtime** with capability-based security. Agents cannot access network, filesystem, or system resources directly—they go through our WASI interfaces.
 
 ### 3. P2P Sync Layer (`crates/sync`)
-Devices discover each other and sync CRDT state directly. Fallback via **NATS** relay.
+Devices discover each other and sync CRDT state directly. Built on **rust-libp2p** with NATS relay fallback.
+
+**libp2p capabilities for office suite:**
+- **Kademlia DHT** — peer discovery without central directory
+- **Gossipsub** — broadcast CRDT document updates to connected peers efficiently
+- **mDNS** — zero-config LAN discovery (devices find each other with no infrastructure)
+- **Request-Response** — direct point-to-point state transfer for initial sync or pairwise reconciliation
+- **DCUtR hole punching** — NAT traversal without STUN/TURN servers (AutoNAT detects NAT, Circuit Relay v2 provides fallback, DCUtR upgrades to direct connection)
+- **QUIC transport** — 1-RTT connection setup, no head-of-line blocking, encryption+muxing in one layer
+- **Noise protocol** — encrypted channels with peer ID authentication (no CA needed)
+
+**CRDT integration:**
+- Automerge documents sync naturally over libp2p — Gossipsub propagates changes, request-response for full state transfer
+- Offline-by-default: peers disconnect/reconnect freely, eventual consistency when back online
 
 ### 4. Content-Addressed Storage (`crates/storage`)
 Binary assets stored as **SHA-256 → blob** mappings. CRDT documents reference by CID.
